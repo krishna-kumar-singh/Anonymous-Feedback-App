@@ -36,12 +36,12 @@ export default  function Home() {
   return (
     <>
       {/* Main content */}
-      <main className="flex-grow flex h-screen flex-col items-center justify-center px-4 md:px-24 py-12 bg-gray-800 text-white">
-        <section className="text-center mb-8 md:mb-12">
-          <h1 className="text-3xl md:text-5xl font-bold">
+      <main className="flex-grow flex min-h-screen flex-col items-center justify-center px-3 md:px-24 py-8 md:py-12 bg-gray-800 text-white">
+        <section className="text-center mb-6 md:mb-12 w-full">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold leading-tight">
             Dive into the World of Anonymous Feedback
           </h1>
-          <p className="mt-3 md:mt-4 text-base md:text-lg">
+          <p className="mt-2 md:mt-4 text-sm sm:text-base md:text-lg text-gray-300">
             True Feedback - Where your identity remains a secret.
           </p>
         </section>
@@ -72,7 +72,7 @@ export default  function Home() {
             ))}
           </CarouselContent>
         </Carousel>
-        <div className="mt-8 flex gap-4">
+        <div className="mt-6 md:mt-8 hidden md:flex gap-3 md:gap-4 flex-wrap justify-center">
           {session ? (
             <Link href={"/dashboard"}><Button>View Dashboard</Button></Link>
           ) : (

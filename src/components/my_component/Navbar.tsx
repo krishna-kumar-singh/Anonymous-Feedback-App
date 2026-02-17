@@ -11,12 +11,12 @@ const Navbar = () => {
 return (
     <nav className="p-4 md:p-6 shadow-md bg-gray-900 text-white">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
-        <a href="#" className="text-xl font-bold mb-4 md:mb-0">
+        <a href="#" className="text-xl font-bold mb-4 md:mb-0 w-full md:w-auto text-center md:text-left">
         Anonymous FeedBack App
         </a>
         {session ? (
           <>
-            <span className="mr-4">
+            <span className="mr-4 text-sm md:text-base mb-2 md:mb-0">
               Welcome {user.username || user.email}
             </span>
             <Button onClick={() => signOut()} className="w-full md:w-auto bg-slate-100 text-black" variant='outline'>
@@ -24,11 +24,11 @@ return (
             </Button>
           </>
         ) : (
-          <div className='flex right-0 gap-3'>
-            <Link href="/sign-in">
+          <div className='flex right-0 gap-2 md:gap-3 w-full md:w-auto flex-col md:flex-row'>
+            <Link href="/sign-in" className='w-full'>
                 <Button className="w-full md:w-auto bg-slate-100 text-black" variant={'outline'}>Sign In</Button>
             </Link>
-            <Link href="/sign-up">
+            <Link href="/sign-up" className='w-full'>
                 <Button className="w-full md:w-auto bg-slate-100 text-black" variant={'outline'}>Sign Up</Button>
             </Link>
           </div>
