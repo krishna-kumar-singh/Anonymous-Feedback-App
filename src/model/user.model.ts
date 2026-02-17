@@ -22,9 +22,6 @@ export interface User extends Document{
     username:string,
     email:string,
     password:string,
-    verifyCode:string,
-    verifyCodeExpiry:Date,
-    isVerified:boolean,
     isAcceptingMessage:boolean,
     messages:Message[]
 }
@@ -47,18 +44,6 @@ const userSchema:Schema<User> =new  Schema({
     password:{
         type:String,
         required:[true,"Password is required"],
-    },
-    verifyCode:{
-        type:String,
-        required:[true,"verifyCode is required"],
-    },
-    verifyCodeExpiry:{
-        type:Date,
-        required:[true,"verifyCodeExpiry is required"],
-    },
-    isVerified:{
-        type:Boolean,
-        default:false
     },
     isAcceptingMessage:{
         type:Boolean,

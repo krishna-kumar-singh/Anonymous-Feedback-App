@@ -12,7 +12,7 @@ export async function GET(request:NextRequest) {
     
     const session=await getServerSession(authOptions)
     console.log("session",session)
-    if(!session || !session.user.isVerified){
+    if(!session){
         return NextResponse.json<ApiResponse>(
             {
                 success:false,

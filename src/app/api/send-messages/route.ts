@@ -9,7 +9,7 @@ export async function POST(request:NextRequest) {
     await dbConnect()
     const {username,content}:{content:string,username:string}=await request.json()
     try {
-        const user = await UserModel.findOne({username, isVerified:true})
+        const user = await UserModel.findOne({username})
         if(!user){
             return NextResponse.json<ApiResponse>(
                 {

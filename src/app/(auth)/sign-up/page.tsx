@@ -87,7 +87,7 @@ function SignUp(){
             variant:res.success?"default":"destructive"
         })
         if(res.success){
-            router.replace(`/otpVerification?username=${values.username}`)
+            router.replace(`/sign-in`)
         }
     } catch (error) {
         setLoading(false)

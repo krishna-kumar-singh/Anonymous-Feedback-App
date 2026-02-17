@@ -27,10 +27,6 @@ export const authOptions:NextAuthOptions={
                         console.log("user not found")
                         return null
                     }
-                    if (!user.isVerified){
-                        console.log("user is not verified")
-                        return null
-                    }
                     const IsPasswordCorrect=await bcrypt.compare(credentials.password,user.password)
                     if(!IsPasswordCorrect){
                          console.log("Password is incorrect")
@@ -49,7 +45,6 @@ export const authOptions:NextAuthOptions={
         async jwt({ token, user}) {
             if(user){
                 token._id=user._id?.toString();
-                token.isVerified=user.isVerified;
                 token.username=user.username;
             }
         return token
@@ -57,7 +52,6 @@ export const authOptions:NextAuthOptions={
         async session({ session, token }) {
             if(token){
                 session.user._id=token._id;
-                session.user.isVerified=token.isVerified;
                 session.user.username=token.username;
             }
 

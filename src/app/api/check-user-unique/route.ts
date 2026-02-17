@@ -47,7 +47,7 @@ export async function GET(request:NextRequest) {
 
         const {username}=ValidationResult.data
         const user= await UserModel.findOne({
-            username,isVerified:true
+            username
         })
         if(user){
             return NextResponse.json<ApiResponse>(

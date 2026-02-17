@@ -33,7 +33,6 @@ const data = [
 export default  function Home() {
 
   const{data:session}=useSession()
-  const isUserAllowed = session?.user.isVerified
   return (
     <>
       {/* Main content */}
@@ -73,9 +72,16 @@ export default  function Home() {
             ))}
           </CarouselContent>
         </Carousel>
-        {isUserAllowed && <div>
-        <Link href={"/dashboard"}><Button>View Dashboard</Button></Link>
-        </div>}
+        <div className="mt-8 flex gap-4">
+          {session ? (
+            <Link href={"/dashboard"}><Button>View Dashboard</Button></Link>
+          ) : (
+            <>
+              <Link href={"/sign-in"}><Button>Sign In</Button></Link>
+              <Link href={"/sign-up"}><Button variant="outline">Sign Up</Button></Link>
+            </>
+          )}
+        </div>
       </main>
       
     </>

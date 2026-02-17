@@ -13,7 +13,7 @@ export const DELETE=async(request:NextRequest, {params}:{
     const session = await getServerSession(authOptions)
     const user= session?.user
 
-    if(!session || !session.user.isVerified){
+    if(!session){
         return NextResponse.json<ApiResponse>(
             {
                 success:false,

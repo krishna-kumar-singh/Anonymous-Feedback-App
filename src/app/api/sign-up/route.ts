@@ -1,4 +1,3 @@
-import { sendverificationEmail} from "@/helpers/sendVerificationEmail"
 import dbConnect from "@/lib/db/dbConnect"
 import UserModel from "@/model/user.model"
 import { ApiResponse } from "@/types/ApiResponse"
@@ -9,10 +8,10 @@ export async function POST(request:NextRequest):Promise<NextResponse<ApiResponse
     try {
         const {username,email,password} =await request.json()
 
-        // finding a user which exist and also verified
-        const isUserVerifiedExist= await UserModel.findOne({$or:[{email,isVerified:true},{username,isVerified:true}]})
+        // finding a user which exist
+        const isUserExist= await UserModel.findOne({$or:[{email},{username}]})
 
-        if(isUserVerifiedExist){
+        if(isUserExist){
             return NextResponse.json<ApiResponse>(
                 {
                     success:false,
@@ -22,51 +21,22 @@ export async function POST(request:NextRequest):Promise<NextResponse<ApiResponse
             )
         }
 
-        const verifyCode=Math.floor(100000+Math.random() * 900000).toString()
-        const verifyCodeExpiry=new Date()
-        verifyCodeExpiry.setHours(verifyCodeExpiry.getHours()+1)
         const salt = await bcrypt.genSalt(10)
         const hashedPassword=await bcrypt.hash(password,salt)
 
-        // finding a user which exist but not verified
-
-        const isUser= await UserModel.findOne({$or:[{email,isVerified:false},{username,isVerified:false}]})
-        if(isUser){
-            isUser.email=email
-            isUser.username=username
-            isUser.password=hashedPassword
-            isUser.verifyCode=verifyCode
-            isUser.verifyCodeExpiry=verifyCodeExpiry
-            await isUser.save()
-        }else{
-            const newUser=new UserModel({
-                username,
-                password:hashedPassword,
-                email,
-                verifyCodeExpiry,
-                verifyCode,
-                messages:[],
-            })
-            
-            await newUser.save()
-        }
+        const newUser=new UserModel({
+            username,
+            password:hashedPassword,
+            email,
+            messages:[],
+        })
         
-        
-        const emailResponse =await sendverificationEmail({email,username,otp:verifyCode})
-        if(!emailResponse.success){
-            return NextResponse.json<ApiResponse>(
-                {
-                    success:false,
-                    message:"failed in sending verification code"
-                },
-                {status:200}
-            )
-        }
+        await newUser.save()
         
         return NextResponse.json<ApiResponse>(
             {
                 success:true,
-                message:"Verification Otp has been send to your email"
+                message:"User registered successfully. Please sign in."
             },
             {status:200}
         )
