@@ -1,4 +1,4 @@
-import { OpenAIStream, StreamingTextResponse } from 'ai';
+import { StreamingTextResponse } from 'ai';
 import { OpenAI } from 'openai';
 
 const openai = new OpenAI({
@@ -20,9 +20,23 @@ export async function POST(req: Request) {
           content: prompt,
         },
       ],
+      temperature: 0.7,
+      max_tokens: 300,
     });
 
-    const stream = OpenAIStream(response);
+    // Convert OpenAI stream to a ReadableStream
+    const stream = new ReadableStream({
+      async start(controller) {
+        for await (const chunk of response) {
+          const text = chunk.choices[0]?.delta?.content || '';
+          if (text) {
+            controller.enqueue(new TextEncoder().encode(text));
+          }
+        }
+        controller.close();
+      },
+    });
+
     return new StreamingTextResponse(stream);
   } catch (error) {
     console.log("error in suggest messages:", error);
