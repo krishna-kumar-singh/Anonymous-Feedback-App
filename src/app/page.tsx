@@ -36,12 +36,12 @@ export default  function Home() {
   return (
     <>
       {/* Main content */}
-      <main className="flex-grow flex min-h-screen flex-col items-center justify-center px-3 md:px-24 py-8 md:py-12 bg-gray-800 text-white">
+      <main className="flex-grow flex min-h-screen flex-col items-center justify-center px-3 md:px-24 py-8 md:py-12 bg-gray-800 text-white transition-colors duration-500">
         <section className="text-center mb-6 md:mb-12 w-full">
-          <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold leading-tight">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold leading-tight transition-transform duration-700 ease-out transform-gpu motion-reduce:transform-none">
             Dive into the World of Anonymous Feedback
           </h1>
-          <p className="mt-2 md:mt-4 text-sm sm:text-base md:text-lg text-gray-300">
+          <p className="mt-2 md:mt-4 text-sm sm:text-base md:text-lg text-gray-300 transition-opacity duration-500">
             True Feedback - Where your identity remains a secret.
           </p>
         </section>
@@ -49,7 +49,7 @@ export default  function Home() {
         {/* Carousel for Messages */}
         <Carousel
           plugins={[Autoplay({ delay: 2000 })]}
-          className="w-full max-w-lg md:max-w-xl"
+          className="w-full max-w-lg md:max-w-xl shadow-sm hover:shadow-2xl transition-shadow duration-500"
         >
           <CarouselContent>
             {data.map((message, index) => (
@@ -72,7 +72,7 @@ export default  function Home() {
             ))}
           </CarouselContent>
         </Carousel>
-        <div className="mt-6 md:mt-8 hidden md:flex gap-3 md:gap-4 flex-wrap justify-center">
+        {/* <div className="mt-6 md:mt-8 hidden md:flex gap-3 md:gap-4 flex-wrap justify-center">
           {session ? (
             <Link href={"/dashboard"}><Button>View Dashboard</Button></Link>
           ) : (
@@ -81,7 +81,7 @@ export default  function Home() {
               <Link href={"/sign-up"}><Button variant="outline">Sign Up</Button></Link>
             </>
           )}
-        </div>
+        </div> */}
       </main>
       
     </>

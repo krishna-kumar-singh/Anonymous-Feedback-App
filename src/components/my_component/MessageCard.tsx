@@ -32,8 +32,8 @@ type messageCardProps={
 
 function MessageCard({message, onMessageDelete}:messageCardProps) {
   return (
-    <Card className="card-bordered">
-      <CardHeader>
+    <Card className="card-bordered transition-transform duration-300 ease-in-out transform-gpu hover:scale-105 hover:shadow-lg">
+      <CardHeader className="transition-opacity duration-300">
         <div className="flex justify-between items-center">
           <CardTitle>{message.content}</CardTitle>
           <AlertDialog>
@@ -59,7 +59,7 @@ function MessageCard({message, onMessageDelete}:messageCardProps) {
             </AlertDialogContent>
           </AlertDialog>
         </div>
-        <div className="text-sm">
+        <div className="text-sm opacity-90 transition-opacity duration-300">
           {dayjs(message.createdAt).format("MMM D, YYYY h:mm A")}
         </div>
       </CardHeader>
